@@ -11,12 +11,12 @@ namespace Task2
         static void Main(string[] args)
         {
             Projekt p = new Projekt(1, "Hugo");
-            Console.WriteLine("Projekt" + p.Projektname + " hat Nummer:" + p.Projektnummer);
+            Console.WriteLine("Projekt " + p.Projektname + " hat Nummer:" + p.Projektnummer);
             p.Projektname = "Franz";
             p.Projektbudget = 27.23;
-            Console.WriteLine("Projekt" + p.Projektname + " hat Nummer:" + p.Projektnummer + " und Budget: "+p.Projektbudget);
+            Console.WriteLine("Projekt " + p.Projektname + " hat Nummer:" + p.Projektnummer + " und Budget: "+p.Projektbudget);
             p.verdoppleBudget();
-            Console.WriteLine("Projekt" + p.Projektname + " hat Nummer:" + p.Projektnummer + " und nun Budget: " + p.Projektbudget);
+            Console.WriteLine("Projekt " + p.Projektname + " hat Nummer:" + p.Projektnummer + " und nun Budget: " + p.Projektbudget);
 
         }
     }
@@ -61,15 +61,3 @@ namespace Task2
         
     }
 }
-/*
- *1 Konstruktor
- * 2 public properties
- * 1 public method
- * 1 private field
- * 
- * Code in main der instanzen erzeugt, new operator
- * properties der Objecte ausgibt
- * methoden der Objekte aufruft und den Effekt auf der Konsole ausgibt
- * 
- * Push nach git 
- */
