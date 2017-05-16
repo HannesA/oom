@@ -10,18 +10,21 @@ namespace Task3
     {
         static void Main(string[] args)
         {
-            massnahme m = new massnahme[10];
-
-            foreach(massnahme in m)
-            {
-                m.printBudget();
-            }
-
+            
+            var m = new massnahme[5];
+            m[0] = new Programm(12);
             Projekt p = new Projekt(1, "Hugo");
             Console.WriteLine("Projekt " + p.Projektname + " hat Nummer:" + p.Projektnummer);
             p.Projektname = "Franz";
             p.Projektbudget = 27.23;
-            Console.WriteLine("Projekt " + p.Projektname + " hat Nummer:" + p.Projektnummer + " und Budget: " + p.Projektbudget);
+            m[1] = new Projekt(1, "Hallo");
+            m[2] = p;
+            for(int i = 0; i<m.Length; i++)
+            {
+                try { m[i].printBudget(); }
+                catch(Exception e) { }
+            }
+
             p.verdoppleBudget();
             Console.WriteLine("Projekt " + p.Projektname + " hat Nummer:" + p.Projektnummer + " und nun Budget: " + p.Projektbudget);
 
@@ -87,7 +90,7 @@ namespace Task3
             }
         }
         //Konstruktor
-        public Projekt(int newProjektnummer, String newProjektname) : base 
+        public Projekt(int newProjektnummer, String newProjektname)
         {
             if (newProjektnummer <= 0) throw new ArgumentOutOfRangeException("Negative Projektnummer unzulaessig");
             my_projektnummer = newProjektnummer;
