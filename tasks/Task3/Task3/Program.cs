@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Task3
 {
     class Program
@@ -21,7 +22,7 @@ namespace Task3
             m[2] = p;
             for(int i = 0; i<m.Length; i++)
             {
-                try { m[i].printBudget(); }
+                try { m[i].printBudget();}
                 catch(Exception e) { }
             }
 
@@ -52,7 +53,7 @@ namespace Task3
             get { return prog_budget; }
             set
             {
-                if (value <= 0) throw new ArgumentOutOfRangeException("Negativer Betrag");
+                if (value <= 0) throw new ArgumentOutOfRangeException("Negativer Betrag"); 
                 if (value <= 40000) throw new ArgumentOutOfRangeException("Budgetbetrag zu gering fuer ein Programm");
                 prog_budget = value;
             }
@@ -85,7 +86,8 @@ namespace Task3
 
             set
             {
-                if (value == "") throw new ArgumentOutOfRangeException("Leerer Name unzulaessig");
+                if (String.IsNullOrEmpty(value)) throw new ArgumentOutOfRangeException("Leerer Name unzulaessig");
+
                 my_projektname = value;
             }
         }
