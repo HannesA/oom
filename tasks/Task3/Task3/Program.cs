@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using Newtonsoft.Json;
+
 
 
 namespace Task3
@@ -12,7 +15,7 @@ namespace Task3
         static void Main(string[] args)
         {
             
-            var m = new massnahme[5];
+            var m = new massnahme[3];
             m[0] = new Programm(12);
             Projekt p = new Projekt(1, "Hugo");
             Console.WriteLine("Projekt " + p.Projektname + " hat Nummer:" + p.Projektnummer);
@@ -23,12 +26,21 @@ namespace Task3
             for(int i = 0; i<m.Length; i++)
             {
                 try { m[i].printBudget();}
-                catch(Exception e) { }
+                catch(Exception e) { throw e; }
             }
 
             p.verdoppleBudget();
             Console.WriteLine("Projekt " + p.Projektname + " hat Nummer:" + p.Projektnummer + " und nun Budget: " + p.Projektbudget);
 
+            //File
+            try
+            {
+                var towrite = new Projekt(27, "Test");
+                string s = JsonConvert.SerializeObject(towrite);
+                Console.WriteLine(s);
+                var x = JsonConvert.DeserializeObject<Projekt>(s);
+                Console.WriteLine(x.Projektname + " == " + towrite.Projektname + " ?");
+            }catch(Exception ei) { throw ei; }
         }
     }
     public interface massnahme
@@ -71,7 +83,19 @@ namespace Task3
         private String my_projektname;
         private double my_budget;
 
-        public int Projektnummer => my_projektnummer;
+        public int Projektnummer
+        {
+            get
+            {
+                return my_projektnummer;
+            }
+            set
+            {
+                if (value <= 0) throw new Exception("Negative Nummer nicht erlaubt");
+                my_projektnummer = value;
+            }
+        } 
+            
         public double Projektbudget
         {
             get { return my_budget; }
@@ -94,12 +118,8 @@ namespace Task3
         //Konstruktor
         public Projekt(int newProjektnummer, String newProjektname)
         {
-            if (newProjektnummer <= 0) throw new ArgumentOutOfRangeException("Negative Projektnummer unzulaessig");
-            my_projektnummer = newProjektnummer;
-
+            Projektnummer = newProjektnummer;
             Projektname = newProjektname;
-
-
         }
         //Methode
         public void verdoppleBudget()
