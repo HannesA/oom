@@ -35,13 +35,13 @@ namespace Task3
             //File
             try
             {
-                var towrite = new Projekt(27, "Test");
+                
                 string y = "Err";
-              
-                File.WriteAllText(@"c:\Users\Hannes\oom\tasks\Task3\text.json", JsonConvert.SerializeObject(towrite));
+                File.WriteAllText(@"c:\Users\Hannes\oom\tasks\Task3\text.json", JsonConvert.SerializeObject(m));
                 if (File.Exists(@"c:\Users\Hannes\oom\tasks\Task3\text.json")) { y = File.ReadAllText(@"c:\Users\Hannes\oom\tasks\Task3\text.json"); }
+                Console.WriteLine(y);
                 var x = JsonConvert.DeserializeObject<Projekt>(y);
-                Console.WriteLine(x.Projektname + " == " + towrite.Projektname + " ?");
+                Console.WriteLine(x.Projektname + " ?");
             }catch(Exception ei) { throw ei; }
         }
     }
