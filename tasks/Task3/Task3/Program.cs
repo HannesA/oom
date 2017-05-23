@@ -32,7 +32,7 @@ namespace Task3
             p.verdoppleBudget();
             Console.WriteLine("Projekt " + p.Projektname + " hat Nummer:" + p.Projektnummer + " und nun Budget: " + p.Projektbudget);
 
-            //File
+            //File & JSON
             try
             {
                 Projekt[] arr = new Projekt[3];
