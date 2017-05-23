@@ -37,10 +37,9 @@ namespace Task3
             {
                 var towrite = new Projekt(27, "Test");
                 string y = "Err";
-                string s = JsonConvert.SerializeObject(towrite);
-                Console.WriteLine(s);
-                if (!File.Exists("test.txt")) { File.WriteAllText(@"C:\test.txt", s); }
-                if (File.Exists("test.txt")) { y = File.ReadAllText(@"C:\test.txt"); }
+              
+                File.WriteAllText(@"c:\Users\Hannes\oom\tasks\Task3", JsonConvert.SerializeObject(towrite));
+                if (File.Exists(@"c:\Users\Hannes\oom\tasks\Task3")) { y = File.ReadAllText(@"c:\Users\Hannes\oom\tasks\Task3"); }
                 var x = JsonConvert.DeserializeObject<Projekt>(y);
                 Console.WriteLine(x.Projektname + " == " + towrite.Projektname + " ?");
             }catch(Exception ei) { throw ei; }
