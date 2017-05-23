@@ -36,9 +36,12 @@ namespace Task3
             try
             {
                 var towrite = new Projekt(27, "Test");
+                string y = "Err";
                 string s = JsonConvert.SerializeObject(towrite);
                 Console.WriteLine(s);
-                var x = JsonConvert.DeserializeObject<Projekt>(s);
+                if (!File.Exists("test.txt")) { File.WriteAllText(@"C:\test.txt", s); }
+                if (File.Exists("test.txt")) { y = File.ReadAllText(@"C:\test.txt"); }
+                var x = JsonConvert.DeserializeObject<Projekt>(y);
                 Console.WriteLine(x.Projektname + " == " + towrite.Projektname + " ?");
             }catch(Exception ei) { throw ei; }
         }
@@ -116,10 +119,10 @@ namespace Task3
             }
         }
         //Konstruktor
-        public Projekt(int newProjektnummer, String newProjektname)
+        public Projekt(int projektnummer, String projektname)
         {
-            Projektnummer = newProjektnummer;
-            Projektname = newProjektname;
+            Projektnummer = projektnummer;
+            Projektname = projektname;
         }
         //Methode
         public void verdoppleBudget()
