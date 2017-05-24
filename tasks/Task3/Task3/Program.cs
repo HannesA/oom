@@ -14,7 +14,7 @@ namespace Task3
     {
         static void Main(string[] args)
         {
-            
+
             var m = new massnahme[3];
             m[0] = new Programm(12);
             Projekt p = new Projekt(1, "Hugo");
@@ -23,31 +23,32 @@ namespace Task3
             p.Projektbudget = 27.23;
             m[1] = new Projekt(1, "Hallo");
             m[2] = p;
-            for(int i = 0; i<m.Length; i++)
+            for (int i = 0; i < m.Length; i++)
             {
-                try { m[i].printBudget();}
-                catch(Exception e) { throw e; }
+                try { m[i].printBudget(); }
+                catch (Exception e) { throw e; }
             }
 
             p.verdoppleBudget();
             Console.WriteLine("Projekt " + p.Projektname + " hat Nummer:" + p.Projektnummer + " und nun Budget: " + p.Projektbudget);
-
+            var arr = new massnahme[]{
+            new Projekt(1, "1"),
+            new Programm(2),
+            new Projekt(3, "3")
+            };
             //File & JSON
             try
             {
-                Projekt[] arr = new Projekt[3];
-
-                arr[0] = new Projekt(1, "1");
-                arr[1] = new Projekt(2, "2");
-                arr[2] = new Projekt(3, "3");
+                
                 string y = "Err";
-                File.WriteAllText(@"c:\Users\Hannes\oom\tasks\Task3\text.json", JsonConvert.SerializeObject(arr));
+                var backupSettings = new JsonSerializerSettings() { Formatting = Formatting.Indented, TypeNameHandling = TypeNameHandling.Auto };
+                File.WriteAllText(@"c:\Users\Hannes\oom\tasks\Task3\text.json", JsonConvert.SerializeObject(arr,backupSettings));
                 if (File.Exists(@"c:\Users\Hannes\oom\tasks\Task3\text.json")) { y = File.ReadAllText(@"c:\Users\Hannes\oom\tasks\Task3\text.json"); }
                 Console.WriteLine(y);
-                var x = JsonConvert.DeserializeObject<Projekt[]>(y);
+                var x = JsonConvert.DeserializeObject<massnahme[]>(y, backupSettings);
                 for (int i = 0; i < 3; i++)
                 {
-                    Console.WriteLine(x[i].Projektname);
+                    x[i].printBudget();
                 }
             }catch(Exception ei) { throw ei; }
         }
@@ -59,30 +60,41 @@ namespace Task3
     }
     class Programm : massnahme
     {
-        private double prog_budget;
-        private int prog_id;
+        private double programmbudget;
+        private int my_programmnummer;
 
-        public int Programmnummer { get;}
-        
-        public Programm(int newProgrammnummer)
+        public int Programmnummer
         {
-            if (newProgrammnummer <= 0) throw new ArgumentOutOfRangeException("Negative Programmnummer unzulaessig");
-            prog_id = newProgrammnummer;
+            get
+            {
+                return my_programmnummer;
+            }
+            set
+            {
+                if (value <= 0) throw new Exception("Negative Nummer nicht erlaubt");
+                my_programmnummer = value;
+            }
+        }
+
+        public Programm(int programmnummer)
+        {
+            
+            Programmnummer = programmnummer;
         }
         public double Programmbudget
         {
-            get { return prog_budget; }
+            get { return programmbudget; }
             set
             {
-                if (value <= 0) throw new ArgumentOutOfRangeException("Negativer Betrag"); 
-                if (value <= 40000) throw new ArgumentOutOfRangeException("Budgetbetrag zu gering fuer ein Programm");
-                prog_budget = value;
+                if (value < 0) throw new ArgumentOutOfRangeException("Negativer Betrag"); 
+               // if (value <= 40000) throw new ArgumentOutOfRangeException("Budgetbetrag zu gering fuer ein Programm");
+                programmbudget = value;
             }
         }
         public void printBudget()
         {
             
-            Console.WriteLine("Programm " + prog_id + " hat Budget: " + prog_budget);
+            Console.WriteLine("Programm " + my_programmnummer + " hat Budget: " + programmbudget);
         }
     }
     

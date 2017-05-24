@@ -1,1 +1,19 @@
-[{"Projektnummer":1,"Projektbudget":0.0,"Projektname":"1"},{"Projektnummer":2,"Projektbudget":0.0,"Projektname":"2"},{"Projektnummer":3,"Projektbudget":0.0,"Projektname":"3"}]
+[
+  {
+    "$type": "Task3.Projekt, Task3",
+    "Projektnummer": 1,
+    "Projektbudget": 0.0,
+    "Projektname": "1"
+  },
+  {
+    "$type": "Task3.Programm, Task3",
+    "Programmnummer": 2,
+    "Programmbudget": 0.0
+  },
+  {
+    "$type": "Task3.Projekt, Task3",
+    "Projektnummer": 3,
+    "Projektbudget": 0.0,
+    "Projektname": "3"
+  }
+]
