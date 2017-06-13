@@ -76,8 +76,20 @@ namespace Task3
             sub.OnNext(new Programm(90));
             sub.OnNext(new Programm(7));
 
+
             
             sub.Dispose();
+
+            //Noch eines einbauen
+
+            //Asynchr
+            Task<double> result = Task.Run(/*IRgendwas*/);
+            result.ContinueWith(x => Console.WriteLine(x.Result));
+
+            //Noch eines einbauen
+
+            int valu = await new /*asynchrone function*/;
+            Console.WriteLine(valu + " ist der Wert ");
         }
     }
     public interface massnahme
