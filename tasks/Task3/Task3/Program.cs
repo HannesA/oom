@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using Newtonsoft.Json;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 
 
 
@@ -39,10 +41,10 @@ namespace Task3
             //File & JSON
             try
             {
-                
+
                 string y = "Err";
                 var backupSettings = new JsonSerializerSettings() { Formatting = Formatting.Indented, TypeNameHandling = TypeNameHandling.Auto };
-                File.WriteAllText(@"c:\Users\Hannes\oom\tasks\Task3\text.json", JsonConvert.SerializeObject(arr,backupSettings));
+                File.WriteAllText(@"c:\Users\Hannes\oom\tasks\Task3\text.json", JsonConvert.SerializeObject(arr, backupSettings));
                 if (File.Exists(@"c:\Users\Hannes\oom\tasks\Task3\text.json")) { y = File.ReadAllText(@"c:\Users\Hannes\oom\tasks\Task3\text.json"); }
                 Console.WriteLine(y);
                 var x = JsonConvert.DeserializeObject<massnahme[]>(y, backupSettings);
@@ -50,7 +52,32 @@ namespace Task3
                 {
                     x[i].printBudget();
                 }
-            }catch(Exception ei) { throw ei; }
+            } catch (Exception ei) { throw ei; }
+
+            //Task 6 und 7 
+
+            int verzw = 7;
+
+            var sub = new Subject<Programm>();
+            
+            sub
+                .Where(Programm => Programm.Programmnummer > 10)
+                .Subscribe(Programm =>
+                { Console.WriteLine(Programm.Programmnummer + " hat Budget: " + Programm.Programmbudget); }
+                );
+
+            sub.OnNext(new Programm(1));
+            sub.OnNext(new Programm(17));
+            sub.OnNext(new Programm(12));
+            sub.OnNext(new Programm(4));
+            sub.OnNext(new Programm(10));
+            sub.OnNext(new Programm(5));
+            sub.OnNext(new Programm(176));
+            sub.OnNext(new Programm(90));
+            sub.OnNext(new Programm(7));
+
+            
+            sub.Dispose();
         }
     }
     public interface massnahme
@@ -71,7 +98,7 @@ namespace Task3
             }
             set
             {
-                if (value <= 0) throw new Exception("Negative Nummer nicht erlaubt");
+                if (value < 0) throw new Exception("Negative Nummer nicht erlaubt");
                 my_programmnummer = value;
             }
         }
