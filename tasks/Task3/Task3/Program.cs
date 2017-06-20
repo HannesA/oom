@@ -69,7 +69,7 @@ namespace Task3
             //Task 6 und 7 
 
            
-            /*
+            
             var sub = new Subject<Programm>();
             
             sub
@@ -87,7 +87,7 @@ namespace Task3
             sub.OnNext(new Programm(176));
             sub.OnNext(new Programm(90));
             sub.OnNext(new Programm(7));
-            */
+            
 
             //Wegraeumen
             //sub.Dispose();
