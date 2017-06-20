@@ -7,13 +7,25 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-
+using System.Threading;
+using System.Net; //Fuer Webclient
 
 
 namespace Task3
 {
     class Program
     {
+        public static Task<double> calc()
+        {
+            return Task.Run(() =>
+            {
+                double x = 27.12 * 342;
+                System.Threading.Thread.Sleep(TimeSpan.FromSeconds(3));
+
+                return x;
+            });
+        }
+
         static void Main(string[] args)
         {
 
@@ -56,7 +68,7 @@ namespace Task3
 
             //Task 6 und 7 
 
-            int verzw = 7;
+            //int verzw = 7;
 
             var sub = new Subject<Programm>();
             
@@ -77,21 +89,33 @@ namespace Task3
             sub.OnNext(new Programm(7));
 
 
-            
+            //Wegraeumen
             sub.Dispose();
 
-            //Noch eines einbauen
+          
 
             //Asynchr
-            Task<double> result = Task.Run(/*IRgendwas*/);
+            Task<double> result = Task.Run(calc);
             result.ContinueWith(x => Console.WriteLine(x.Result));
+/*
+            var data = new WebClient().DownloadStringTaskAsync(new Uri("http://api.openweathermap.org/data/2.5/forecast?id=4228440&APPID=5a25822b84dd4a99085d04091d4e847b"));
+            data.ContinueWith(t => Console.WriteLine(t.Result));
 
-            //Noch eines einbauen
-
-            int valu = await new /*asynchrone function*/;
-            Console.WriteLine(valu + " ist der Wert ");
+           */
+            
+            /*
+            double valu = await new Task<double>(async_calc);
+            Console.WriteLine(valu + " ist der Wert ");*/
         }
     }
+    /*
+    public static async Task async_calc(double y)
+    {
+        double z = await calc(y)) ;
+        
+    }
+    
+    */
     public interface massnahme
     {
         void printBudget();
