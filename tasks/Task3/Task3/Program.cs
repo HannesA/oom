@@ -15,7 +15,7 @@ namespace Task3
 {
     class Program
     {
-        public static Task<double> calc()
+        public static  Task<double> calc()
         {
             return Task.Run(() =>
             {
@@ -68,8 +68,8 @@ namespace Task3
 
             //Task 6 und 7 
 
-            //int verzw = 7;
-
+           
+            /*
             var sub = new Subject<Programm>();
             
             sub
@@ -87,25 +87,22 @@ namespace Task3
             sub.OnNext(new Programm(176));
             sub.OnNext(new Programm(90));
             sub.OnNext(new Programm(7));
-
+            */
 
             //Wegraeumen
-            sub.Dispose();
+            //sub.Dispose();
 
           
 
-            //Asynchr
+            //Continue
             Task<double> result = Task.Run(calc);
             result.ContinueWith(x => Console.WriteLine(x.Result));
-/*
-            var data = new WebClient().DownloadStringTaskAsync(new Uri("http://api.openweathermap.org/data/2.5/forecast?id=4228440&APPID=5a25822b84dd4a99085d04091d4e847b"));
-            data.ContinueWith(t => Console.WriteLine(t.Result));
 
-           */
-            
-            /*
-            double valu = await new Task<double>(async_calc);
-            Console.WriteLine(valu + " ist der Wert ");*/
+            //Async
+            var result2 = new WebClient().DownloadStringTaskAsync(new Uri("http://dev.orf.at/"));
+            result2.ContinueWith(t => Console.WriteLine(t.Result));
+
+
         }
     }
     /*
